@@ -1,0 +1,6 @@
+NAME = ''
+KEY = ''
+SECRET = ''
+TEXTRA_URL = ''
+WEB_HOOK_URL = ''
+RSS = 'http://arxiv.org/rss/cs'
