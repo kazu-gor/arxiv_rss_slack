@@ -7,6 +7,8 @@ import feedparser
 import requests as req
 import requests
 import json
+import time
+import datetime
 from requests_oauthlib import OAuth1
 from xml.etree.ElementTree import *
 from static import NAME, KEY, SECRET, TEXTRA_URL, WEB_HOOK_URL, RSS
@@ -18,7 +20,7 @@ d = feedparser.parse(RSS)
 text_block = list()
 print(f"Size: {len(d.entries)}")
 for i, entry in enumerate(d.entries):
-    print(i, end=' ')
+    print(str(i))
     if i % 100 == 0:
         requests.post(WEB_HOOK_URL, data=json.dumps({
             "attachments": text_block,
@@ -54,5 +56,10 @@ for i, entry in enumerate(d.entries):
 requests.post(WEB_HOOK_URL, data=json.dumps({
     "attachments": text_block,
     "icon_emoji": ":piggy:",
-    "username": "arxiv_pic",
+    "username": "arxiv_piggy",
 }))
+
+dt_now = datetime.datetime.now() + datetime.timedelta(hours=9)
+dt_strtime = dt_now.strftime("%Y-%m-%d_%H")
+with open(f'{dt_strtime}.txt', 'w') as f:
+    f.write(text_block)
